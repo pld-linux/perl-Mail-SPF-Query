@@ -9,7 +9,7 @@ Summary:	Mail::SPF::Query - Perl implementation of SPF
 Summary(pl):	Mail::SPF::Query - perlowa implementacja SPF
 Name:		perl-Mail-SPF-Query
 Version:	1.97
-Release:	2
+Release:	3
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
