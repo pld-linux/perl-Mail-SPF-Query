@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# spfd	spfd server
+# spfd		spfd server
 #
-# chkconfig:	345 85 15
+# chkconfig:	345 75 25
 # description:	spfd is an SPF record checking daemon
 # processname:	spfd
 
