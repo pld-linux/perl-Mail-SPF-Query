@@ -44,6 +44,8 @@ wykrywania sfa³szowanej poczty.
 Summary:	SPF record checking daemon
 Summary(pl):	Demon sprawdzaj±cy rekordy SPF
 Group:		Networking/Daemons
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
 
 %description -n spfd
