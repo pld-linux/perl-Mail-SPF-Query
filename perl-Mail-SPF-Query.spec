@@ -80,17 +80,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --add spfd
 umask 137
 if [ -f /var/lock/subsys/spfd ]; then
-        /etc/rc.d/init.d/spfd restart 1>&2
+	/etc/rc.d/init.d/spfd restart 1>&2
 else
-        echo "Run \"/etc/rc.d/init.d/spfd start\" to start SPF daemon."
+	echo "Run \"/etc/rc.d/init.d/spfd start\" to start SPF daemon."
 fi
  
 %preun -n spfd
 if [ "$1" = "0" ]; then
-        if [ -f /var/lock/subsys/spfd ]; then
-                /etc/rc.d/init.d/spfd stop 1>&2
-        fi
-        /sbin/chkconfig --del spfd
+	if [ -f /var/lock/subsys/spfd ]; then
+		/etc/rc.d/init.d/spfd stop 1>&2
+	fi
+	/sbin/chkconfig --del spfd
 fi
 
 %files
