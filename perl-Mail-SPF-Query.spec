@@ -3,8 +3,8 @@
 %bcond_without	tests	# do not perform "make test"
 #
 %include	/usr/lib/rpm/macros.perl
-%define	pdir	Mail
-%define	pnam	SPF-Query
+%define		pdir	Mail
+%define		pnam	SPF-Query
 Summary:	Mail::SPF::Query - Perl implementation of SPF
 Summary(pl):	Mail::SPF::Query - perlowa implementacja SPF
 Name:		perl-Mail-SPF-Query
