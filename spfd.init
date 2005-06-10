@@ -17,7 +17,7 @@
 SPFD_USER="nobody"
 SPFD_GROUP="nobody"
 SPFD_SOCKET="/var/run/spfd.socket"
-OPTIONS=''
+OPTIONS="-pathuser=\"$SPFD_USER\" -pathgroup=\"$SPFD_GROUP\" -path=\"$SPFD_SOCKET\" -pathmode=666"
 
 # Get service config
 [ -f /etc/sysconfig/spfd ] && . /etc/sysconfig/spfd
@@ -40,7 +40,7 @@ case "$1" in
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/spfd ]; then
 		msg_starting spf
-		daemon spfd $OPTIONS -pathuser="$SPFD_USER" -pathgroup="$SPFD_GROUP" -path="$SPFD_SOCKET" -pathmode=666 &
+		daemon spfd $OPTIONS &
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/spfd
 	else
