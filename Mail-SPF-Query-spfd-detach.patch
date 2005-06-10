@@ -1,0 +1,41 @@
+diff -ruN Mail-SPF-Query-1.997.host/spfd Mail-SPF-Query-1.997.detach/spfd
+--- Mail-SPF-Query-1.997.host/spfd	2005-06-10 14:24:12.000000000 +0200
++++ Mail-SPF-Query-1.997.detach/spfd	2005-06-10 14:24:27.000000000 +0200
+@@ -44,6 +44,9 @@
+ #    -setgroup=(gid|groupname)
+ #        Drop privileges to gid or groupname after opening the socket
+ #
++#    -nodetach
++#        Do not detach from calling console 
++#
+ 
+ # example usage
+ #    
+@@ -65,9 +68,10 @@
+ 
+ use Mail::SPF::Query;
+ use Socket;
++use POSIX qw(setsid);
+ 
+ use strict;
+-use vars qw($port $host $path $pathuser $pathgroup $pathmode $setuser $setgroup);
++use vars qw($port $host $path $pathuser $pathgroup $pathmode $setuser $setgroup $nodetach);
+ 
+ # FIXME
+ sub usage () {
+@@ -143,6 +147,15 @@
+ 
+ DEBUG and print "$$: server is $server\n";
+ 
++unless($nodetach) {
++  print "Detaching...\n";
++  fork() and exit();
++  setsid();
++  close(STDIN);
++  close(STDOUT);
++  close(STDERR);
++}
++
+ if ($setgroup) {
+   if ($setgroup =~ /\D/) {
+     $setgroup = getgrnam($setgroup) || die "Group: $setgroup not found\n";
