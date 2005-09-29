@@ -28,6 +28,7 @@ BuildRequires:	perl-URI
 %endif
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
+Requires:	perl-Sys-Hostname-Long
 Requires:	perl-Net-CIDR-Lite >= 0.15
 Requires:	perl-Net-DNS >= 0.33
 Requires:	perl(URI::Escape) >= 3.20
