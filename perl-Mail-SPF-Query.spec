@@ -9,7 +9,7 @@ Summary:	Mail::SPF::Query - Perl implementation of SPF
 Summary(pl):	Mail::SPF::Query - perlowa implementacja SPF
 Name:		perl-Mail-SPF-Query
 Version:	1.997
-Release:	2
+Release:	3
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
@@ -26,8 +26,8 @@ BuildRequires:	perl-Net-Netmask
 BuildRequires:	perl-Test-Simple
 BuildRequires:	perl-URI
 %endif
-BuildRequires:	perl-devel >= 1:5.8.0
-BuildRequires:	rpm-perlprov >= 4.1-13
+BuildRequires:	perl-devel >= 1:5.6.1
+BuildRequires:	rpm-perlprov >= 4.0.2-112.1
 Requires:	perl-Sys-Hostname-Long
 Requires:	perl-Net-CIDR-Lite >= 0.15
 Requires:	perl-Net-DNS >= 0.33
@@ -66,7 +66,7 @@ gniazdach uniksowych.
 
 %build
 %{__perl} Makefile.PL \
-	INSTALLDIRS=vendor
+	INSTALLDIRS=site
 %{__make}
 
 %{?with_tests:%{__make} test}
@@ -104,8 +104,8 @@ fi
 %defattr(644,root,root,755)
 %doc Changes
 %attr(755,root,root) %{_bindir}/spfquery
-%dir %{perl_vendorlib}/Mail/SPF
-%{perl_vendorlib}/Mail/SPF/*.pm
+%dir %{perl_sitelib}/Mail/SPF
+%{perl_sitelib}/Mail/SPF/*.pm
 %{_mandir}/man3/*
 
 %files -n spfd
