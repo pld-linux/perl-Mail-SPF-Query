@@ -28,10 +28,11 @@ BuildRequires:	perl-URI
 %endif
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
-Requires:	perl-Sys-Hostname-Long
+BuildRequires:	rpmbuild(macros) >= 1.268
+Requires:	perl(URI::Escape) >= 3.20
 Requires:	perl-Net-CIDR-Lite >= 0.15
 Requires:	perl-Net-DNS >= 0.33
-Requires:	perl(URI::Escape) >= 3.20
+Requires:	perl-Sys-Hostname-Long
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -47,9 +48,9 @@ wykrywania sfa³szowanej poczty.
 Summary:	SPF record checking daemon
 Summary(pl):	Demon sprawdzaj±cy rekordy SPF
 Group:		Networking/Daemons
-PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
+Requires:	rc-scripts
 
 %description -n spfd
 SPF record checking daemon, operating as a local resolver on
@@ -85,18 +86,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post -n spfd
 /sbin/chkconfig --add spfd
-umask 137
-if [ -f /var/lock/subsys/spfd ]; then
-	/etc/rc.d/init.d/spfd restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/spfd start\" to start SPF daemon."
-fi
- 
+%service spfd restart "SPF daemon"
+
 %preun -n spfd
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/spfd ]; then
-		/etc/rc.d/init.d/spfd stop 1>&2
-	fi
+	%service spfd stop
 	/sbin/chkconfig --del spfd
 fi
 
