@@ -8,17 +8,17 @@
 Summary:	Mail::SPF::Query - Perl implementation of SPF
 Summary(pl):	Mail::SPF::Query - perlowa implementacja SPF
 Name:		perl-Mail-SPF-Query
-Version:	1.997
-Release:	5
+Version:	1.999.1
+Release:	0.1
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
-Source0:	http://spf.pobox.com/%{pdir}-%{pnam}-%{version}.tar.gz
-# Source0-md5:	9e110d00520e0fe174c25c0734a8baf6
+Source0:	http://www.cpan.org/modules/by-module/Mail/%{pdir}-%{pnam}-%{version}.tar.gz
+# Source0-md5:	6d62d024d1614fa1fa4f43bd39ee7bf0
 Source1:	spfd.init
 Patch0:		Mail-SPF-Query-spfd-host.patch
 Patch1:		Mail-SPF-Query-spfd-detach.patch
-URL:		http://spf.pobox.com/
+URL:		http://search.cpan.org/dist/Mail-SPF-Query/
 %if %{with tests}
 BuildRequires:	perl-Net-CIDR-Lite >= 0.15
 BuildRequires:	perl-Net-DNS >= 0.33
@@ -62,8 +62,8 @@ gniazdach uniksowych.
 
 %prep
 %setup -q -n %{pdir}-%{pnam}-%{version}
-%patch0 -p1
-%patch1 -p1
+#%patch0 -p1
+#%patch1 -p1
 
 %build
 %{__perl} Makefile.PL \
@@ -96,13 +96,15 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc Changes
+%doc CHANGES README examples
 %attr(755,root,root) %{_bindir}/spfquery
 %dir %{perl_vendorlib}/Mail/SPF
 %{perl_vendorlib}/Mail/SPF/*.pm
 %{_mandir}/man3/*
+%{_mandir}/man1/spfquery*
 
 %files -n spfd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/spfd
 %attr(754,root,root) /etc/rc.d/init.d/spfd
+%{_mandir}/man1/spfd*
