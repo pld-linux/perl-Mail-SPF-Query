@@ -9,7 +9,7 @@ Summary:	Mail::SPF::Query - Perl implementation of SPF
 Summary(pl):	Mail::SPF::Query - perlowa implementacja SPF
 Name:		perl-Mail-SPF-Query
 Version:	1.999.1
-Release:	0.1
+Release:	0.2
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
@@ -23,6 +23,7 @@ URL:		http://search.cpan.org/dist/Mail-SPF-Query/
 BuildRequires:	perl-Net-CIDR-Lite >= 0.15
 BuildRequires:	perl-Net-DNS >= 0.33
 BuildRequires:	perl-Net-Netmask
+BuildRequires:	perl-Sys-Hostname-Long
 BuildRequires:	perl-Test-Simple
 BuildRequires:	perl-URI
 %endif
