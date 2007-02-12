@@ -6,7 +6,7 @@
 %define		pdir	Mail
 %define		pnam	SPF-Query
 Summary:	Mail::SPF::Query - Perl implementation of SPF
-Summary(pl):	Mail::SPF::Query - perlowa implementacja SPF
+Summary(pl.UTF-8):   Mail::SPF::Query - perlowa implementacja SPF
 Name:		perl-Mail-SPF-Query
 Version:	1.999.1
 Release:	0.2
@@ -41,13 +41,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 This module implements a daemon to query SPF records for email forgery
 detection.
 
-%description -l pl
-Ten modu³ jest implementacj± demona sprawdzaj±cego rekordy SPF w celu
-wykrywania sfa³szowanej poczty.
+%description -l pl.UTF-8
+Ten moduÅ‚ jest implementacjÄ… demona sprawdzajÄ…cego rekordy SPF w celu
+wykrywania sfaÅ‚szowanej poczty.
 
 %package -n spfd
 Summary:	SPF record checking daemon
-Summary(pl):	Demon sprawdzaj±cy rekordy SPF
+Summary(pl.UTF-8):   Demon sprawdzajÄ…cy rekordy SPF
 Group:		Networking/Daemons
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
@@ -57,8 +57,8 @@ Requires:	rc-scripts
 SPF record checking daemon, operating as a local resolver on
 UNIX-domain sockets.
 
-%description -n spfd -l pl
-Demon sprawdzaj±cy rekordy SPF, dzia³aj±cy jako lokalny resolver na
+%description -n spfd -l pl.UTF-8
+Demon sprawdzajÄ…cy rekordy SPF, dziaÅ‚ajÄ…cy jako lokalny resolver na
 gniazdach uniksowych.
 
 %prep
