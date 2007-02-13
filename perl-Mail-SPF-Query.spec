@@ -6,7 +6,7 @@
 %define		pdir	Mail
 %define		pnam	SPF-Query
 Summary:	Mail::SPF::Query - Perl implementation of SPF
-Summary(pl.UTF-8):   Mail::SPF::Query - perlowa implementacja SPF
+Summary(pl.UTF-8):	Mail::SPF::Query - perlowa implementacja SPF
 Name:		perl-Mail-SPF-Query
 Version:	1.999.1
 Release:	0.2
@@ -47,7 +47,7 @@ wykrywania sfałszowanej poczty.
 
 %package -n spfd
 Summary:	SPF record checking daemon
-Summary(pl.UTF-8):   Demon sprawdzający rekordy SPF
+Summary(pl.UTF-8):	Demon sprawdzający rekordy SPF
 Group:		Networking/Daemons
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
