@@ -9,7 +9,7 @@ Summary:	Mail::SPF::Query - Perl implementation of SPF
 Summary(pl.UTF-8):	Mail::SPF::Query - perlowa implementacja SPF
 Name:		perl-Mail-SPF-Query
 Version:	1.999.1
-Release:	1
+Release:	2
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
@@ -77,6 +77,9 @@ install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/spfd
 
+# we prefer spfquery from perl-Mail-SPF
+rm -rf $RPM_BUILD_ROOT{%{_bindir}/spfquery,%{_mandir}/man1/spfquery*}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -93,11 +96,9 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc CHANGES README examples
-%attr(755,root,root) %{_bindir}/spfquery
 %dir %{perl_vendorlib}/Mail/SPF
 %{perl_vendorlib}/Mail/SPF/*.pm
 %{_mandir}/man3/*
-%{_mandir}/man1/spfquery*
 
 %files -n spfd
 %defattr(644,root,root,755)
