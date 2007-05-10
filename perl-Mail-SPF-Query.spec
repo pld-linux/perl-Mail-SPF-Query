@@ -6,32 +6,31 @@
 %define		pdir	Mail
 %define		pnam	SPF-Query
 Summary:	Mail::SPF::Query - Perl implementation of SPF
-Summary(pl):	Mail::SPF::Query - perlowa implementacja SPF
+Summary(pl.UTF-8):	Mail::SPF::Query - perlowa implementacja SPF
 Name:		perl-Mail-SPF-Query
-Version:	1.997
-Release:	4
+Version:	1.999.1
+Release:	2
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
-Source0:	http://spf.pobox.com/%{pdir}-%{pnam}-%{version}.tar.gz
-# Source0-md5:	9e110d00520e0fe174c25c0734a8baf6
+Source0:	http://www.cpan.org/modules/by-module/Mail/%{pdir}-%{pnam}-%{version}.tar.gz
+# Source0-md5:	6d62d024d1614fa1fa4f43bd39ee7bf0
 Source1:	spfd.init
-Patch0:		Mail-SPF-Query-spfd-host.patch
-Patch1:		Mail-SPF-Query-spfd-detach.patch
-URL:		http://spf.pobox.com/
+URL:		http://search.cpan.org/dist/Mail-SPF-Query/
 %if %{with tests}
 BuildRequires:	perl-Net-CIDR-Lite >= 0.15
 BuildRequires:	perl-Net-DNS >= 0.33
-BuildRequires:	perl-Net-Netmask
+BuildRequires:	perl-Sys-Hostname-Long
 BuildRequires:	perl-Test-Simple
 BuildRequires:	perl-URI
 %endif
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
-Requires:	perl-Sys-Hostname-Long
+BuildRequires:	rpmbuild(macros) >= 1.268
+Requires:	perl(URI::Escape) >= 3.20
 Requires:	perl-Net-CIDR-Lite >= 0.15
 Requires:	perl-Net-DNS >= 0.33
-Requires:	perl(URI::Escape) >= 3.20
+Requires:	perl-Sys-Hostname-Long
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -39,30 +38,28 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 This module implements a daemon to query SPF records for email forgery
 detection.
 
-%description -l pl
-Ten modu³ jest implementacj± demona sprawdzaj±cego rekordy SPF w celu
-wykrywania sfa³szowanej poczty.
+%description -l pl.UTF-8
+Ten moduÅ‚ jest implementacjÄ… demona sprawdzajÄ…cego rekordy SPF w celu
+wykrywania sfaÅ‚szowanej poczty.
 
 %package -n spfd
 Summary:	SPF record checking daemon
-Summary(pl):	Demon sprawdzaj±cy rekordy SPF
+Summary(pl.UTF-8):	Demon sprawdzajÄ…cy rekordy SPF
 Group:		Networking/Daemons
-PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Requires:	%{name} = %{version}-%{release}
+Requires:	rc-scripts
 
 %description -n spfd
 SPF record checking daemon, operating as a local resolver on
 UNIX-domain sockets.
 
-%description -n spfd -l pl
-Demon sprawdzaj±cy rekordy SPF, dzia³aj±cy jako lokalny resolver na
+%description -n spfd -l pl.UTF-8
+Demon sprawdzajÄ…cy rekordy SPF, dziaÅ‚ajÄ…cy jako lokalny resolver na
 gniazdach uniksowych.
 
 %prep
 %setup -q -n %{pdir}-%{pnam}-%{version}
-%patch0 -p1
-%patch1 -p1
 
 %build
 %{__perl} Makefile.PL \
@@ -80,30 +77,25 @@ install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/spfd
 
+# we prefer spfquery from perl-Mail-SPF
+rm -rf $RPM_BUILD_ROOT{%{_bindir}/spfquery,%{_mandir}/man1/spfquery*}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post -n spfd
 /sbin/chkconfig --add spfd
-umask 137
-if [ -f /var/lock/subsys/spfd ]; then
-	/etc/rc.d/init.d/spfd restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/spfd start\" to start SPF daemon."
-fi
- 
+%service spfd restart "SPF daemon"
+
 %preun -n spfd
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/spfd ]; then
-		/etc/rc.d/init.d/spfd stop 1>&2
-	fi
+	%service spfd stop
 	/sbin/chkconfig --del spfd
 fi
 
 %files
 %defattr(644,root,root,755)
-%doc Changes
-%attr(755,root,root) %{_bindir}/spfquery
+%doc CHANGES README examples
 %dir %{perl_vendorlib}/Mail/SPF
 %{perl_vendorlib}/Mail/SPF/*.pm
 %{_mandir}/man3/*
@@ -112,3 +104,4 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/spfd
 %attr(754,root,root) /etc/rc.d/init.d/spfd
+%{_mandir}/man1/spfd*
