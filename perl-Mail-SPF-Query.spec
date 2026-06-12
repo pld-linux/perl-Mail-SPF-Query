@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	tests	# do not perform "make test"
+%bcond_with	tests	# tests need network (live SPF DNS lookups), off by default
 #
 %define		pdir	Mail
 %define		pnam	SPF-Query
